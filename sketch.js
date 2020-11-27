@@ -1,56 +1,45 @@
-var fixedRect, movingRect;
+var car;
+var wall;
+var speed;
+var weight;
 
-var ob1, ob2,ob3,ob4;
+function preload(){
+
+}
+
 function setup() {
-  createCanvas(800,400);
-  ob1 = createSprite(400, 200, 50, 50);
-  ob2 = createSprite(100,350,50,60);
-ob3 = createSprite(200, 200, 50, 50);
- ob4 = createSprite(250,300,50,30); 
- 
-  ob3.shapecolor = "green";
+  speed=random(55,90);
+  weight=random(400,1500);
+  createCanvas(400,400);
+   wall=createSprite(350,200,60,200);
+  wall.shapeColor="gray";
+  car=createSprite(50,200,50,50);
+  car.shapeColor="white";
 }
-//hi!
+
 function draw() {
-
-  background("lime"); 
-
-
-fill("yellow");
-line(400,200,425,200);
-
-  ob2.x = World.mouseX;
-  ob2.y = World.mouseY;
+  background("black");
+car.velocityX=speed;
 
   
-if(isTouching(ob3,ob2))
-{
-  ob3.shapecolor = "pink";
-  ob2.shapecolor = "blue";
-}
-
-
-  //if( fixedRect.y - movingRect.y === fixedRect.height/2 +movingRect.height/2 || movingRect.y - fixedRect.y === fixedRect.height/2 + movingRect.height/2){
-    //movingRect.shapeColor="red";
-   // fixedRect.shapeColor="red";
-
-  //}
-
-  drawSprites();
-}
-
-function isTouching(ob1,ob2){
-
-  if(ob1.x - ob2.x ===  ob2.width/2 +ob1.width/2 || ob2.x - ob1.x === ob1.width/2 +ob2.width/2 || ob1.y - ob2.y === ob1.height/2 +ob2.height/2 || ob2.y - ob1.y === ob1.height/2 + ob2.height/2){
-    return true;
-
+  if(wall.x-car.x<(car.width+wall.width)/2){
+    car.velocity=0;
+    var deformation=0.5*weight*speed*speed/22509;
+    if(deformation>180){
+      car.shapeColor=color(255,0,0);
+    }
+    if(deformation<180&&deformation>100){
+      car.shapeColor=color(230,230,0);
+    }
+    if(deformation<100){
+      car.shapeColor=color(0,255,0);
+    }
   }
-
-else{
- return false;
   
-}
-
-
-
+  
+  
+  
+  
+  
+ drawSprites(); 
 }
